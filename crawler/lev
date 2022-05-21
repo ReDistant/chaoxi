@@ -1,0 +1,7 @@
+#!/bin/sh
+
+crawler -s -p "$CHROME_BIN" -u "$LEV_URL" -tl "$LEV_LIMIT" -c "$LEV_COOKIES" > requests.json
+
+DATA=$(jq -nc --arg d "$(cat requests.json)" --arg token "$LEV_TOKEN" '. + { data: $d, ratio: 1, token: $token }')
+
+curl -X PUT "${LEV_API_GATEWAY}/api/virus_reference/${LEV_REFERENCE_ID}/submit" -H 'Content-Type: application/json' -d "$DATA"
