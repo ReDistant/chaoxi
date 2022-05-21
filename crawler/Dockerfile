@@ -5,7 +5,7 @@ RUN apk --no-cache add git
 WORKDIR /go/src/talentsec.cn/lev/crawler/
 
 #RUN go get -d -v github.com/go-rod/rod
-RUN go env -w GO111MODULE=on && go get -d -v github.com/go-rod/rod
+RUN go mod init && go get -d -v github.com/go-rod/rod
 
 COPY . .
 
